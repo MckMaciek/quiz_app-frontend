@@ -1,17 +1,23 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 import { Formik } from 'formik';
 import Button from '@material-ui/core/Button';
+import {UserInterface} from '../Interfaces/userInterface';
+import { useHistory } from "react-router-dom";
 
+interface userInputFormPropsTypes {
+    saveUser : (user : UserInterface) => void,
+}
 
-const UserInputForm = () => {
+const UserInputForm  = ({saveUser} : userInputFormPropsTypes)  => {
 
     const classes = useStyles();
+    let history = useHistory();
 
     return(
         <div>
             <Formik
-                initialValues={{userName: '', userEmail: ''}}
-                onSubmit={values => alert(JSON.stringify(values))}
+                initialValues={{name: '', email: ''}}
+                onSubmit={(values : UserInterface) =>  {saveUser(values); history.push("/question"); } }
                 >
                 {
                 ({
@@ -26,8 +32,8 @@ const UserInputForm = () => {
                         placeholder='name'
                         required
                         onChange={handleChange}
-                        name="userName"
-                        value={values.userName}
+                        name="name"
+                        value={values.name}
                     />
 
                     <input
@@ -35,11 +41,15 @@ const UserInputForm = () => {
                         placeholder='e-mail'
                         required
                         onChange={handleChange}
-                        name="userEmail"
-                        value={values.userEmail}
+                        name="email"
+                        value={values.email}
                     />
 
-                    <Button className={classes.formButton} variant="contained" color="secondary" type="submit">
+                    <Button className={classes.formButton} 
+                    variant="contained"
+                     color="secondary" 
+                     type="submit"
+                    >   
                     START THE QUIZ!
                     </Button>
 
@@ -75,6 +85,5 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         borderRadius : '12px',
     }
   }));
-
 
 export default UserInputForm;

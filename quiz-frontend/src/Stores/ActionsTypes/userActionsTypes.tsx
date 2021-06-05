@@ -1,23 +1,20 @@
 
-interface userActionsInterface {
-    SAVE_USER : string,
-    SAVE_USER_IN_PROGRESS : string,
-    SAVE_USER_IN_PROGRESS_ERROR : string,
+export const SAVE_USER = "SAVE_USER";
+export const SAVE_USER_IN_PROGRESS = "SAVE_USER_IN_PROGRESS";
+export const SAVE_USER_IN_PROGRESS_ERROR = "SAVE_USER_IN_PROGRESS_ERROR";
 
-    GET_USER : string,
-    GET_USER_IN_PROGRESS : string,
-    GET_USER_IN_PROGRESS_ERROR : string,
+
+interface userActionsInterface {
+    SAVE_USER : typeof SAVE_USER,
+    SAVE_USER_IN_PROGRESS : typeof SAVE_USER_IN_PROGRESS ,
+    SAVE_USER_IN_PROGRESS_ERROR : typeof SAVE_USER_IN_PROGRESS_ERROR,
 }
 
 
-const  userActions : userActionsInterface = {
+export const userActions : userActionsInterface = {
     SAVE_USER : 'SAVE_USER',
     SAVE_USER_IN_PROGRESS : 'SAVE_USER_IN_PROGRESS',
     SAVE_USER_IN_PROGRESS_ERROR : 'SAVE_USER_IN_PROGRESS_ERROR',
-
-    GET_USER : 'GET_USER',
-    GET_USER_IN_PROGRESS : 'GET_USER_IN_PROGRESS',
-    GET_USER_IN_PROGRESS_ERROR : 'GET_USER_IN_PROGRESS_ERROR',
 }
 
-export default userActions;
+

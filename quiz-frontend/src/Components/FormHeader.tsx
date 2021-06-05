@@ -1,5 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
 
+
 const FormHeader = () =>{
 
     const classes = useStyles();
@@ -18,6 +19,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         fontFamily : 'Verdana, sans-serif',
     },
 
-  }));
+}));
 
 export default FormHeader;

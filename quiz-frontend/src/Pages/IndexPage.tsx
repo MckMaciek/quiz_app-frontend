@@ -1,7 +1,6 @@
 import { createStyles, makeStyles, Theme } from '@material-ui/core';
-import WelcomingScreen from '../Layouts/WelcomingScreen';
-import Footer from '../Layouts/Footer';
-
+import WelcomingScreen from '../Components/WelcomingScreen';
+import Footer from '../Components/Footer';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

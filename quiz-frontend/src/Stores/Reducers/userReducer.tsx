@@ -1,34 +1,31 @@
-import userActionsTypes from '../ActionsTypes/userActionsTypes';
+import {userActions} from '../ActionsTypes/userActionsTypes';
 import {UserOperationsTypes} from '../Actions/userActions';
+import {UserInterface} from '../../Interfaces/userInterface';
 
-
-interface User{
-    name : string,
-    email : string,
-}
 
 export interface UserReducerState {
-    user ?: User,
+    user ?: UserInterface,
     isSaved : boolean,
     scored : number,
 }
 
 const INITIAL_STATE: UserReducerState = {
-    user : undefined,
+    user : {
+        name : '',
+        email : '',
+    },
     isSaved : false,
     scored : 0,
 };
 
 
-const userReducer = () => (state : UserReducerState = INITIAL_STATE, action : UserOperationsTypes) : UserReducerState =>{
+const userReducer = (state : UserReducerState = INITIAL_STATE, action : UserOperationsTypes) : UserReducerState =>{
     switch(action.type){
-        case userActionsTypes.SAVE_USER:
+        case userActions.SAVE_USER: {
             return {...state, user : action.payload}
-        case userActionsTypes.SAVE_USER_IN_PROGRESS:
-            return {...state, isSaved : action.payload}
-
+        }
         default :
-            return {...state}
+            return state
     }
 }
 export default userReducer;

@@ -1,19 +1,63 @@
-import { Backdrop, createStyles, makeStyles, Theme } from '@material-ui/core';
-import FormHeader from '../Layouts/FormHeader';
+import { createStyles, makeStyles, Theme } from '@material-ui/core';
+import FormHeader from '../Components/FormHeader';
 import UserInputForm from '../Components/UserInputForm';
+import {UserInterface} from '../Interfaces/userInterface';
+import {userSave} from '../Stores/Api/userSave';
+import { connect, ConnectedProps  } from 'react-redux';
+import { ThunkDispatch } from 'redux-thunk';
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
-const FormPage = () =>{
+
+interface MapDispatcherToProps {
+    saveUserNameAndEmail : (user : UserInterface) => void;
+}
+
+interface  MapStateToProps {
+    user : UserInterface
+}
+
+const mapStateToProps = (state : any) : MapStateToProps  =>({
+    user: state.userReducer.user,
+  });
+  
+
+const mapDispatchToProps = (dispatch : ThunkDispatch<{}, {}, any>) : MapDispatcherToProps =>({
+    saveUserNameAndEmail : (user : UserInterface) => dispatch(userSave(user))
+  });
+
+const connector =  connect(mapStateToProps,mapDispatchToProps);
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+
+const FormPage : React.FC<PropsFromRedux> = ({saveUserNameAndEmail, user}) =>{
     
     const classes = useStyles();
-    
+
+    const saveUser = (user : UserInterface) =>{
+        saveUserNameAndEmail(user);
+    }
+
+
     return(
-       <div className={classes.root}>
-            <FormHeader/>
-           <div className={classes.form_container}>
-            <UserInputForm></UserInputForm>
-           </div>
-       </div>
+        <>
+        <div className={classes.root}>
+                <FormHeader/>
+            <div className={classes.form_container}>
+                <UserInputForm saveUser={(user : UserInterface) => saveUser(user)}></UserInputForm>
+            </div>
+
+            <Button 
+            variant="contained" 
+            className={classes.retButton}
+            component={ Link } to="/"
+            >
+                BACK
+            </Button>
+        </div>
+        </>
     );
 }
 
@@ -37,8 +81,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         border: '5px solid white',
         borderRadius : '12px',
     },
+    retButton : {
+        marginTop : '20px',
+    }
 
   }));
 
 
-export default FormPage;
+export default connector(FormPage);

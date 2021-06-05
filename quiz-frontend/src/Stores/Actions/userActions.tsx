@@ -1,44 +1,38 @@
-import userActionTypes from '../ActionsTypes/userActionsTypes';
+import {userActions} from '../ActionsTypes/userActionsTypes';
+import {UserInterface} from '../../Interfaces/userInterface';
 
 
-interface User {
-    user : {
-        name : string,
-        email : string,
-    }
-    isSaved : boolean,
-    scored : number,
+interface SaveUserNameAndEmailInterface {
+    type : typeof userActions.SAVE_USER,
+    payload : UserInterface, 
 }
 
-interface saveUserInterface {
-    type : typeof userActionTypes.SAVE_USER,
-    payload : User, 
-}
-
-interface userBeingSavedInterface {
-    type : typeof userActionTypes.SAVE_USER_IN_PROGRESS,
+interface UserBeingSavedInterface {
+    type : typeof userActions.SAVE_USER_IN_PROGRESS,
     payload : boolean, 
 }
 
-interface userBeingSavedErrorInterface {
-    type : typeof userActionTypes.SAVE_USER_IN_PROGRESS_ERROR,
+interface UserBeingSavedErrorInterface {
+    type : typeof userActions.SAVE_USER_IN_PROGRESS_ERROR,
     payload : boolean, 
 }
 
-export type UserOperationsTypes  = saveUserInterface | userBeingSavedInterface | userBeingSavedErrorInterface;
+export type UserOperationsTypes  =  SaveUserNameAndEmailInterface |
+                                    UserBeingSavedInterface | 
+                                    UserBeingSavedErrorInterface;
 
 
-export const saveUser = (user: User): saveUserInterface => ({
-    type: userActionTypes.SAVE_USER,
+export const saveUserNameAndEmail = (user: UserInterface): SaveUserNameAndEmailInterface => ({
+    type: userActions.SAVE_USER,
     payload: user
 });
 
-export const userBeingSaved = (isSaved: boolean): userBeingSavedInterface => ({
-    type: userActionTypes.SAVE_USER_IN_PROGRESS,
+export const userBeingSaved = (isSaved: boolean): UserBeingSavedInterface => ({
+    type: userActions.SAVE_USER_IN_PROGRESS,
     payload: isSaved,
 });
 
-export const userBeingSavedError = (isSaved: boolean): userBeingSavedErrorInterface => ({  //zmienic 
-    type: userActionTypes.SAVE_USER,
+export const userBeingSavedError = (isSaved: boolean): UserBeingSavedErrorInterface => ({  //todo 
+    type: userActions.SAVE_USER_IN_PROGRESS_ERROR,
     payload: isSaved,
 });
